@@ -6,7 +6,7 @@ Created on Fri Nov  3 10:29:17 2023
 """
 
 """
-This assignment is to apply three types of visualisation methods (graphs) to
+This assignment is applying three types of visualisation methods (graphs) to
  extract meaningful information from data on the average annual gross wages of 
  graduates in the UK in 2017 by ages and highest qualifications.
 """
@@ -32,8 +32,8 @@ print(t_grad_annual_wage)
 
 
 """
-Writing the first line containing qualifications into header and
- removing first row. Setting the ages as int and not strings
+Writing the first line containing qualifications into header and removing 
+ first row. Setting the ages as int and not strings
 """
 
 t_grad_annual_wage.columns = t_grad_annual_wage.iloc[0]
@@ -42,15 +42,21 @@ print(t_grad_annual_wage)
 t_grad_annual_wage.index = t_grad_annual_wage.index.astype(int)
 
 
+
 """
-Plotting the data as three different graphs to extract meaningful information.
- The graphs picked for visualisation are line plot, box plot and bar graph
+The next part of the code will be plotting the data as three different graphs 
+ to extract meaningful information.The graphs picked for visualisation are
+ Line plot, Box plot and Bar graph
 """
  
-# Plotting the annual gross wages per qualifications by ages as a line graph
+# Plotting first graph, line graph of wages per qualifications as a function
 
 def grad_line_graph(df):
     plt.figure()
+    
+
+#This part of the code plots wages for all ages against each qualification
+
     plt.plot(t_grad_annual_wage.index[0::], t_grad_annual_wage['Graduates'], 
          label=('Graduate'))
     plt.plot(t_grad_annual_wage.index[0::], t_grad_annual_wage['Apprenticeship'],
@@ -77,20 +83,24 @@ def grad_line_graph(df):
     plt.show()
     return
 
-# Calling the function grad_line_graph 
+
+# Calling the function grad_line_graph with transposed graduate dataframe 
 grad_line_graph(t_grad_annual_wage)
 
 
+
 """
-The second graph is a Box plot showing the median, modal and quartile salaries,
-    for each qualification. The box plot also shows outlier salaries.
+This part of the code is a function that plots the second graph - Box plot for
+ all the qualifications showing the median, modal and quartile salaries,for
+ each qualification. 
 """
 
-# Defining values of data and header to be plotted in box plot function
+# Defining values of data as wages for each qualification 
 
 data = [t_grad_annual_wage['Graduates'], t_grad_annual_wage['Apprenticeship'],
      t_grad_annual_wage['A level'], t_grad_annual_wage['A* to C grade GCSE']]
-    
+  
+# Defining values of header as list of headers and storing in qualifications  
 qualifcations = ['Graduate', 'Apprenticeship', 'A level', 'GCSE']
  
 
@@ -122,47 +132,54 @@ grad_box_plot(data, qualifcations)
 
 
 """
-The third graph shows the highest annual wage for each qualification as a bar
- graph.The maximum and minimum wages for each qualification is stored in a variable
+The third graph shows the highest and lowest annual wages for each qualification 
+ as a bar graph.The maximum and minimum wages for each qualification are stored 
+ in variables
 """
 
+
+# This function takes a dataframe and plots a bar plot for min and max wages
+
 def grad_bar_plot(df):
+    
+# Calling the max() function to get the maximum wage for each qualificaiton
+    
     graduate_max = t_grad_annual_wage['Graduates'].max()
     apprentice_max = t_grad_annual_wage['Apprenticeship'].max()
     a_level_max = t_grad_annual_wage['A level'].max()
     GCSE_max = t_grad_annual_wage['A* to C grade GCSE'].max()
 
-
+# Calling the min() function to get the minimum wages for each qualificaiton
     graduate_min = t_grad_annual_wage['Graduates'].min()
     apprentice_min = t_grad_annual_wage['Apprenticeship'].min()
     a_level_min = t_grad_annual_wage['A level'].min()
     GCSE_min = t_grad_annual_wage['A* to C grade GCSE'].min()
 
 
-# The maximum annual wages are stored in an array as data
+# The maximum annual wages are stored in arrays as datamax and datamin
     data_max = np.array([graduate_max,apprentice_max, a_level_max, GCSE_max])
     data_min = np.array([graduate_min,apprentice_min, a_level_min, GCSE_min])
 
 
-# Plotting the bar graph and adding the title
+# Plotting bar graph and adding the title. Setting Xticks on 20 degrees angle
 
     plt.figure(figsize=(7,5))
 
     plt.ylim(0,40000)
     plt.xticks(rotation=20)
     plt.bar(qualifcations, data_max, label  = 'Highest Salaries', width = 0.5)
-    plt.bar(qualifcations, data_min, label = 'Lowest Salaries', color = 'brown', width = 0.5)
+    plt.bar(qualifcations, data_min, label = 'Lowest Salaries', 
+            color = 'brown', width = 0.5)
     plt.legend()
     plt.title('Highest and Lowest Annual Wages per Qualification')
 
     plt.savefig('Assign1_Bargraph.png')
-
     plt.show()
 
     return
 
 
-# Calling the function grad bar plot
+# Calling the function grad bar plot that takes the transposed data frame
 
 grad_bar_plot(t_grad_annual_wage)
 
