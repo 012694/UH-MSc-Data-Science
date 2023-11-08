@@ -74,7 +74,7 @@ def grad_box_plot(dt, header):
     plt.figure(figsize=(12,6))                             
 
     #Plotting the data frame against the labels
-    plt.boxplot(data, labels = qualifcations)
+    plt.boxplot(data, labels=qualifcations)
     plt.legend() 
       
     # Setting the titles, labels and limits for the axes
